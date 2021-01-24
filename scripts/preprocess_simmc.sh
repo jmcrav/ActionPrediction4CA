@@ -1,7 +1,6 @@
 #!/bin/bash
 
-DOMAIN="furniture"
-# DOMAIN="fashion"
+DOMAIN="fashion"
 ROOT="../data/simmc_${DOMAIN}/"
 
 # Input files.
@@ -10,14 +9,7 @@ DEV_JSON_FILE="${ROOT}${DOMAIN}_dev_dials.json"
 DEVTEST_JSON_FILE="${ROOT}${DOMAIN}_devtest_dials.json"
 
 
-if [ "$DOMAIN" == "furniture" ]; then
-    METADATA_FILE="${ROOT}furniture_metadata.csv"
-elif [ "$DOMAIN" == "fashion" ]; then
-    METADATA_FILE="${ROOT}fashion_metadata.json"
-else
-    echo "Invalid domain!"
-    exit 0
-fi
+METADATA_FILE="${ROOT}fashion_metadata.json"
 
 
 # Output files.
@@ -28,21 +20,10 @@ ATTR_VOCAB_FILE="${ROOT}${DOMAIN}_attribute_vocabulary.json"
 
 # Step 1: Extract assistant API.
 INPUT_FILES="${TRAIN_JSON_FILE} ${DEV_JSON_FILE} ${DEVTEST_JSON_FILE}"
-# If statement.
-if [ "$DOMAIN" == "furniture" ]; then
-    python tools/extract_actions.py \
-        --json_path="${INPUT_FILES}" \
-        --save_root="${ROOT}" \
-        --metadata_path="${METADATA_FILE}"
-elif [ "$DOMAIN" == "fashion" ]; then
-    python tools/extract_actions_fashion.py \
-        --json_path="${INPUT_FILES}" \
-        --save_root="${ROOT}" \
-        --metadata_path="${METADATA_FILE}"
-else
-    echo "Invalid domain!"
-    exit 0
-fi
+python tools/extract_actions_fashion.py \
+    --json_path="${INPUT_FILES}" \
+    --save_root="${ROOT}" \
+    --metadata_path="${METADATA_FILE}"
 
 
 # Step 2: Extract vocabulary from train.
@@ -53,19 +34,9 @@ python tools/extract_vocabulary.py \
 
 
 # Step 3: Read and embed shopping assets.
-if [ "$DOMAIN" == "furniture" ]; then
-    python tools/embed_furniture_assets.py \
-        --input_csv_file="${METADATA_FILE}" \
-        --embed_path="${METADATA_EMBEDS}"
-elif [ "$DOMAIN" == "fashion" ]; then
-    python tools/embed_fashion_assets.py \
-        --input_asset_file="${METADATA_FILE}" \
-        --embed_path="${METADATA_EMBEDS}"
-else
-    echo "Invalid domain!"
-    exit 0
-fi
-
+python tools/embed_fashion_assets.py \
+    --input_asset_file="${METADATA_FILE}" \
+    --embed_path="${METADATA_EMBEDS}"
 
 # Step 4: Convert all the splits into npy files for dataloader.
 SPLIT_JSON_FILES=("${TRAIN_JSON_FILE}" "${DEV_JSON_FILE}" "${DEVTEST_JSON_FILE}")
