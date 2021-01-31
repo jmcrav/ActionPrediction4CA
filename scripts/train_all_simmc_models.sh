@@ -2,7 +2,7 @@
 GPU_ID=0
 # DOMAIN="furniture"
 DOMAIN="fashion"
-ROOT="../data/simmc_${DOMAIN}/"
+ROOT="data/simmc_${DOMAIN}/"
 
 
 # Input files.

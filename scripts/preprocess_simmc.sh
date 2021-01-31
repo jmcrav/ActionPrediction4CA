@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DOMAIN="fashion"
-ROOT="../data/simmc_${DOMAIN}/"
+ROOT="data/simmc_${DOMAIN}/"
 
 # Input files.
 TRAIN_JSON_FILE="${ROOT}${DOMAIN}_train_dials.json"
