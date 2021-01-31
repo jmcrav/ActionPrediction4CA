@@ -1,8 +1,8 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import encoders
 
 from .assistant import Assistant
-from . import encoders
 from .decoder import GenerativeDecoder
 from .action_executor import ActionExecutor
 from .positional_encoding import PositionalEncoding
@@ -12,12 +12,12 @@ from .user_memory_embedder import UserMemoryEmbedder
 
 
 __all__ = [
+    "encoders",
     "Assistant",
     "GenerativeDecoder",
     "ActionExecutor",
     "PositionalEncoding",
     "SelfAttention",
     "CarouselEmbedder",
-    "UserMemoryEmbedder",
-    "encoders"
+    "UserMemoryEmbedder"
 ]

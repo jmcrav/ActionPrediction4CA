@@ -9,7 +9,7 @@ import torch.nn as nn
 
 from tools import weight_init, torch_support
 import models
-import models.encoders as encoders
+import encoders
 
 
 class Assistant(nn.Module):

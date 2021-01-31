@@ -11,7 +11,7 @@ import torch.nn as nn
 
 from tools import rnn_support as rnn
 from tools import torch_support as support
-import models.encoders as encoders
+import encoders
 
 
 @encoders.register_encoder("memory_network")
