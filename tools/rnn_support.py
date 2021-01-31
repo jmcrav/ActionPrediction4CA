@@ -82,7 +82,7 @@ def dynamic_rnn(
     sorted_len, fwd_order, bwd_order = get_sorted_order(seq_len)
     sorted_seq_input = seq_input.index_select(0, fwd_order)
     packed_seq_in = nn.utils.rnn.pack_padded_sequence(
-        sorted_seq_input, lengths=sorted_len, batch_first=True
+        sorted_seq_input, lengths=sorted_len.cpu(), batch_first=True
     )
 
     # If initial state is given, re-arrange according to the initial sorting.
