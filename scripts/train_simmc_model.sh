@@ -3,7 +3,7 @@
 GPU_ID=0
 #DOMAIN="furniture"
 DOMAIN="fashion"
-ROOT="../data/simmc_${DOMAIN}/"
+ROOT="data/simmc_${DOMAIN}/"
 
 
 # Input files.
@@ -15,7 +15,7 @@ DEVTEST_JSON_FILE="${ROOT}${DOMAIN}_devtest_dials.json"
 # Output files.
 METADATA_EMBEDS="${ROOT}${DOMAIN}_asset_embeds.npy"
 ATTR_VOCAB_FILE="${ROOT}${DOMAIN}_attribute_vocabulary.json"
-MODEL_METAINFO="../models/${DOMAIN}_model_metainfo.json"
+MODEL_METAINFO="models/${DOMAIN}_model_metainfo.json"
 
 
 COMMON_FLAGS="
@@ -34,17 +34,14 @@ COMMON_FLAGS="
 printf "[Train]\n"
 # Train history-agnostic model.
 # For other models, please look at scripts/train_all_simmc_models.sh
-python -u ../train_simmc_agent.py $COMMON_FLAGS \
+python -u train_simmc_agent.py $COMMON_FLAGS \
     --encoder="history_agnostic" \
     --text_encoder="lstm"
-
-read -p "Press any key to continue ..."
 
 printf "[Evaluate]\n"
 # Evaluate a trained model checkpoint.
 CHECKPOINT_PATH="${CHECKPOINT_ROOT}/hae/epoch_20.tar"
-python -u ../eval_simmc_agent.py \
+python -u eval_simmc_agent.py \
     --eval_data_path=${DEVTEST_JSON_FILE/.json/_mm_inputs.npy} \
     --checkpoint="$CHECKPOINT_PATH" --gpu_id=${GPU_ID} --batch_size=50 \
     --domain="$DOMAIN"
-read -p "Press any key to continue ..."
