@@ -112,7 +112,7 @@ for iter_ind, batch in enumerate(train_loader.get_batch()):
     ):
         # Create the folder if it does not exist.
         os.makedirs(args["snapshot_path"], exist_ok=True)
-        os.chmode(args["snapshot_path"],0777)
+        os.chmode(args["snapshot_path"],0o777)
         # If prudent, save only if best model.
         checkpoint_dict = {
             "model_state": wizard.state_dict(),
