@@ -38,7 +38,7 @@ CHECKPOINT_ROOT="/content/ActionPrediction4CA/checkpoints/"
 python -u train_simmc_agent.py $COMMON_FLAGS \
     --encoder="history_agnostic" \
     --text_encoder="lstm" \
-    --snapshots_path="$CHECKPOINT_ROOT"
+    --snapshot_path="$CHECKPOINT_ROOT"
 
 printf "[Evaluate]\n"
 # Evaluate a trained model checkpoint.
