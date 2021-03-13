@@ -34,13 +34,15 @@ COMMON_FLAGS="
 printf "[Train]\n"
 # Train history-agnostic model.
 # For other models, please look at scripts/train_all_simmc_models.sh
+CHECKPOINT_ROOT="/content/ActionPrediction4CA/checkpoints/"
 python -u train_simmc_agent.py $COMMON_FLAGS \
     --encoder="history_agnostic" \
-    --text_encoder="lstm"
+    --text_encoder="lstm" \
+    --snapshots_path="$CHECKPOINT_ROOT"
 
 printf "[Evaluate]\n"
 # Evaluate a trained model checkpoint.
-CHECKPOINT_PATH="${CHECKPOINT_ROOT}/hae/epoch_20.tar"
+CHECKPOINT_PATH="${CHECKPOINT_ROOT}epoch_20.tar"
 python -u eval_simmc_agent.py \
     --eval_data_path=${DEVTEST_JSON_FILE/.json/_mm_inputs.npy} \
     --checkpoint="$CHECKPOINT_PATH" --gpu_id=${GPU_ID} --batch_size=50 \
