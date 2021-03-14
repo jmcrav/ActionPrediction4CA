@@ -34,7 +34,7 @@ COMMON_FLAGS="
 printf "[Train]\n"
 # Train history-agnostic model.
 # For other models, please look at scripts/train_all_simmc_models.sh
-CHECKPOINT_ROOT="/content/ActionPrediction4CA/checkpoints/"
+CHECKPOINT_ROOT="checkpoints/"
 python -u train_simmc_agent.py $COMMON_FLAGS \
     --encoder="history_agnostic" \
     --text_encoder="lstm" \
