@@ -19,7 +19,53 @@ from tools import support
 
 
 # Arguments.
-args = options.read_command_line()
+#args = options.read_command_line()
+args = {
+    "train_data_path" : "data/simmc_fashion/fashion_train_dials_mm_inputs.npy",
+    "eval_data_path" : "data/simmc_fashion/fashion_dev_dials_mm_inputs.npy",
+    "asset_embed_path" : "data/simmc_fashion/fashion_asset_embeds.npy",
+    "metainfo_path":"models/fashion_model_metainfo.json",
+    "attr_vocab_path":"data/simmc_fashion/fashion_attribute_vocabulary.json",
+    "learning_rate":0.0001,
+    "gpu_id" : 0,
+    "use_action_attention" : True,
+    "num_epochs" : 100,
+    "eval_every_epoch":5,
+    "batch_size":20,
+    "save_every_epoch" : 5,
+    "word_embed_size" : 256,
+    "num_layers" : 2 ,
+    "hidden_size" : 512,
+    "use_multimodal_state": True,
+    "use_action_output": True,
+
+    "retrieval_evaluation": True,
+    "bleu_evaluation": False,
+    "max_encoder_len": 24,
+    "max_history_len": 100,
+    "max_decoder_len": 26,
+    "max_rounds": 30,
+    "share_embeddings": True,
+    "batch_size": 20,
+    "learning_rate": 0.0001,
+    "dropout": 0.2,
+    "save_prudently": False,
+
+    "use_bahdanau_attention" : True,
+    "skip_bleu_evaluation": True,
+    "domain" : "fashion",
+    "encoder" : "history_agnostic",
+    "text_encoder" : "lstm",
+    "use_gpu": True,
+
+    "snapshot_path" : "checkpoints/"
+}
+#use_action_attention ? false
+#use_action_output ->ignore for tf_idf
+#use_bahdanau_attention -> on for LSTM
+#"Use multimodal state for action prediction (fashion)"
+
+#encoder: pretrained transformer
 
 # Dataloader.
 dataloader_args = {
