@@ -28,6 +28,12 @@ class DataloaderSIMMC(loaders.LoaderParent):
         # Load the dataset.
         raw_data = np.load(params["data_read_path"], allow_pickle=True)
         self.raw_data = raw_data[()]
+
+        self.raw_data["paths"]["data"] = 'data/simmc_fashion/fashion_train_dials.json'
+        self.raw_data["paths"]["action"] = 'data/simmc_fashion/fashion_train_dials_api_calls.json'
+        self.raw_data["paths"]["retrieval"] = 'data/simmc_fashion/fashion_train_dials_retrieval_candidates.json'
+        self.raw_data["paths"]["vocabulary"] = 'data/simmc_fashion/fashion_vocabulary.json'
+
         if self.params["encoder"] != "pretrained_transformer":
             self.words = loaders.Vocabulary()
             self.words.set_vocabulary_state(self.raw_data["vocabulary"]["word"])
