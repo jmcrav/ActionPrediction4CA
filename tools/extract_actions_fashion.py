@@ -53,10 +53,33 @@ def extract_actions(input_json_file):
         for round_datum in dialog_datum["dialogue"]:
             focus_images.append(focus_image)
             # Default None action.
+
+            # if "transcript" not in round_datum:
+            #     transcript = None
+            # else:
+            #     transcript = round_datum["transcript"]
+            # if "system_transcript" not in round_datum:
+            #     system_transcript = None
+            # else:
+            #     system_transcript = round_datum["system_transcript"]
+            #
+            # if "transcript_annotated" not in round_datum:
+            #     transcript_annotated = None
+            # else:
+            #     transcript_annotated = round_datum["transcript_annotated"]
+            # if "system_transcript_annotated" not in round_datum:
+            #     system_transcript_annotated = None
+            # else:
+            #     system_transcript_annotated = round_datum["system_transcript_annotated"]
+
             insert_item = {
                 "turn_idx": round_datum["turn_idx"],
                 "action": "None",
-                "action_supervision": None
+                "action_supervision": None,
+                # "transcript": transcript,
+                # "transcript_annotated": transcript_annotated,
+                # "system_transcript": system_transcript,
+                # "system_transcript_annotated": system_transcript_annotated
             }
             keystrokes = round_datum.get("raw_assistant_keystrokes", [])
             # Get information attributes given the asset id.
