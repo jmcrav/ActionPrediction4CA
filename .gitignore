@@ -132,3 +132,5 @@ dmypy.json
 .idea/
 
 checkpoints.zip
+/.vs/ProjectSettings.json
+/.vs/slnx.sqlite
