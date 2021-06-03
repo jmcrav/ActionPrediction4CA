@@ -557,7 +557,7 @@ labels_attributes_tr = torch.tensor(attributes_labels_tr_vect)
 # Print sentence 0, now as a list of IDs.
 print("TRAINING : ")
 if (use_next):
-    print('Original: ', transcripts_tr[0], "[SEP]", next_transcript_tr[0])
+    print('Original: ', transcripts_tr[0])
 else:
     print('Original: ', transcripts_tr[0])
 print('Token IDs:', input_ids_tr[0])
@@ -628,7 +628,7 @@ turn_idxs_vd = torch.tensor(turn_idxs_vd)
 # Print sentence 0, now as a list of IDs.
 print("VALIDATION : ")
 if (use_next):
-    print('Original: ', transcripts_vd[0], "[SEP]", next_transcript_vd[0])
+    print('Original: ', transcripts_vd[0])
 else:
     print('Original: ', transcripts_vd[0])
 print('Token IDs:', input_ids_vd[0])
@@ -703,7 +703,7 @@ turn_idxs_tst = torch.tensor(turn_idxs_tst)
 # Print sentence 0, now as a list of IDs.
 print("Evaluation : ")
 if (use_next):
-    print('Original: ', transcripts_tst[0], "[SEP]", next_transcript_tst[0])
+    print('Original: ', transcripts_tst[0])
 else:
     print('Original: ', transcripts_tst[0])
 print('Token IDs:', input_ids_tst[0])
