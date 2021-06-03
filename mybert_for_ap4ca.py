@@ -88,7 +88,8 @@ device_name = tf.test.gpu_device_name()
 if device_name == '/device:GPU:0':
     print('Found GPU at: {}'.format(device_name))
 else:
-    raise SystemError('GPU device not found')
+    #raise SystemError('GPU device not found')
+    print('GPU device not found')
 
 """In order for torch to use the GPU, we need to identify and specify the GPU as the device. Later, in our training loop, we will load data onto the device. """
 
