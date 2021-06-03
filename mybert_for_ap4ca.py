@@ -79,17 +79,17 @@ A GPU can be added by going to the menu and selecting:
 Then run the following cell to confirm that the GPU is detected.
 """
 
-import tensorflow as tf
-
-# Get the GPU device name.
-device_name = tf.test.gpu_device_name()
-
-# The device name should look like the following:
-if device_name == '/device:GPU:0':
-    print('Found GPU at: {}'.format(device_name))
-else:
-    #raise SystemError('GPU device not found')
-    print('GPU device not found')
+# import tensorflow as tf
+#
+# # Get the GPU device name.
+# device_name = tf.test.gpu_device_name()
+#
+# # The device name should look like the following:
+# if device_name == '/device:GPU:0':
+#     print('Found GPU at: {}'.format(device_name))
+# else:
+#     #raise SystemError('GPU device not found')
+#     print('GPU device not found')
 
 """In order for torch to use the GPU, we need to identify and specify the GPU as the device. Later, in our training loop, we will load data onto the device. """
 
