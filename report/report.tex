@@ -1,0 +1,124 @@
+%\documentclass[10pt,twocolumn,letterpaper]{article}
+%\documentclass[review]{cvpr}
+%\documentclass[rebuttal]{cvpr}
+\documentclass[final]{cvpr}
+
+\def\cvprPaperID{****} % *** Enter the CVPR/ICCV Paper ID here
+\def\confName{ICCV}
+\def\confYear{2021}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{colortbl}
+
+% Include other packages here, before hyperref.
+
+% If you comment hyperref and then uncomment it, you should delete
+% egpaper.aux before re-running latex.  (Or just hit 'q' on the first latex
+% run, let it finish, and you should be clear).
+\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
+
+% \cvprfinalcopy % *** Uncomment this line for the final submission
+
+\def\cvprPaperID{****} % *** Enter the CVPR Paper ID here
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+% Pages are numbered in submission mode, and unnumbered in camera-ready
+%\ifcvprfinal\pagestyle{empty}\fi
+\begin{document}
+	
+	%%%%%%%%% TITLE
+	\title{Action prediction $\ldots$}
+	
+	\author{Giovanni Cravero\\
+		Politecnico di Torino\\
+		{\tt\small s193598@studenti.polito.it}
+		\and
+		Eugenio Desualdo\\
+		Politecnico di Torino\\
+		{\tt\small s271880@studenti.polito.it}
+		\and
+		Marco Riondina\\
+		Politecnico di Torino\\
+		{\tt\small s280096@studenti.polito.it}
+	}
+	
+	\maketitle
+	%\thispagestyle{empty}
+	
+	%%%%%%%%% ABSTRACT
+	\begin{abstract}
+		Last but not least (this is the last piece of work)
+	\end{abstract}
+	
+	%%%%%%%%% BODY TEXT
+	\section{Introduction}
+	Brief description of the task and the goals.
+	
+	%------------------------------------------------------------------------
+	\section{Background}
+	Introduction
+	\subsection{SIMMC}
+	
+	\subsubsection{Data description}
+	
+	\subsection{BERT and Transformers}
+	
+	%------------------------------------------------------------------------
+	\section{Model}
+	What and why
+	
+	\subsection{Input manipulation}
+	Here we can describe the tensor dataset structure and the tokenized input value, \eg
+
+	\begin{table}[h]
+		\centering
+
+		\begin{tabular}{lcccccc}
+			\rowcolor[gray]{0.9}
+			& [CLS] & Q1 & L1 & & & \\
+			\rowcolor[gray]{0.97}
+			& [CLS] & Q1 & A1 & [SEP] & Q2 & L2 \\
+			\rowcolor[gray]{0.9}
+			& [CLS] & Q2 & A2 & [SEP] & Q3 & L3 \\
+			\rowcolor[gray]{0.97}
+			& [CLS] & Q3 & A3 & [SEP] & Q4 & L4 \\
+		\end{tabular}
+		
+		\caption{\small{Sentences composition}}
+		\label{tab:sentcomp}
+	\end{table}
+
+	The tab. \ref{tab:sentcomp} $\ldots$
+		
+	\subsection{Added layers - Activation functions}
+	
+	\subsection{Loss function}
+	
+	\subsubsection{Actions}
+	\subsubsection{Attributes}
+	
+	\subsection{Tuning}
+	\begin{itemize}
+		\item epochs
+		\item batches
+		\item learning rate
+		\item $\ldots$
+	\end{itemize}
+
+	%------------------------------------------------------------------------
+	\section{Results}
+
+	%------------------------------------------------------------------------
+	\section{Conclusion}
+	
+	
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{egbib}
+	}
+	
+\end{document}
