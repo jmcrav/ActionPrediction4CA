@@ -134,3 +134,4 @@ dmypy.json
 checkpoints.zip
 /.vs/ProjectSettings.json
 /.vs/slnx.sqlite
+/.vs/
