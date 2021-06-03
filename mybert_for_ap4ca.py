@@ -200,7 +200,8 @@ def createDataframe(json_file):
                 'transcript_annotated': transcript_annotated,
                 'system_transcript': system_transcript,
                 'system_transcript_annotated': system_transcript_annotated,
-                'next_transcript': ""
+                'previous_transcript': "",
+                'previous_system_transcript': ""
             }
             if (action_supervision != None):
                 if 'focus' in action_supervision:
@@ -223,7 +224,8 @@ def createDataframe(json_file):
 
     # Conservo id turno e risposta sistema per provare a implementare una soluzione articolata
     df = pd.DataFrame(data, columns=['dialog_id', 'turn_idx', 'transcript', 'action', 'attributes', 'system_transcript',
-                                     'transcript_annotated', 'system_transcript_annotated', 'next_transcript'])
+                                     'transcript_annotated', 'system_transcript_annotated', 'previous_transcript',
+                                     'previous_system_transcript'])
 
     return df
 
@@ -265,23 +267,26 @@ use_next = True
 Generazione della colonna contenente la frase del turno successivo del dialogo (se presente)
 """
 
-# Training
+#Training
 df_training.sort_values(by=['dialog_id', 'turn_idx'])
-for i in range(0, (len(df_training) - 1)):
-    if (i < (len(df_training)) and df_training['dialog_id'][i] == df_training['dialog_id'][i + 1]):
-        df_training.loc[i, 'next_transcript'] = df_training['transcript'][i + 1]
+for i in range(1,(len(df_training))):
+  if(i<(len(df_training)) and  df_training['dialog_id'][i] == df_training['dialog_id'][i-1]):
+    df_training.loc[i,'previous_transcript'] = df_training['transcript'][i-1]
+    df_training.loc[i,'previous_system_transcript'] = df_training['system_transcript'][i-1]
 
-# Validation
+#Validation
 df_validation.sort_values(by=['dialog_id', 'turn_idx'])
-for i in range(0, (len(df_validation) - 1)):
-    if (i < (len(df_validation)) and df_validation['dialog_id'][i] == df_validation['dialog_id'][i + 1]):
-        df_validation.loc[i, 'next_transcript'] = df_validation['transcript'][i + 1]
+for i in range(1,(len(df_validation))):
+  if(i<(len(df_validation)) and  df_validation['dialog_id'][i] == df_validation['dialog_id'][i-1]):
+    df_validation.loc[i,'previous_transcript'] = df_validation['transcript'][i-1]
+    df_validation.loc[i,'previous_system_transcript'] = df_validation['system_transcript'][i-1]
 
-# Evaluation
+#Evaluation
 df_test.sort_values(by=['dialog_id', 'turn_idx'])
-for i in range(0, (len(df_test) - 1)):
-    if (i < (len(df_test)) and df_test['dialog_id'][i] == df_test['dialog_id'][i + 1]):
-        df_test.loc[i, 'next_transcript'] = df_test['transcript'][i + 1]
+for i in range(1,(len(df_test))):
+  if(i<(len(df_test)) and  df_test['dialog_id'][i] == df_test['dialog_id'][i-1]):
+    df_test.loc[i,'previous_transcript'] = df_test['transcript'][i-1]
+    df_test.loc[i,'previous_system_transcript'] = df_test['system_transcript'][i-1]
 
 """### Estrazione vettori colonna"""
 
@@ -294,9 +299,10 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=Tru
 """#### Training"""
 
 transcripts_tr = df_training.transcript.values
-next_transcript_tr = df_training.next_transcript.values
+previous_transcript_tr = df_training.previous_transcript.values
+previous_system_transcript_tr = df_training.previous_system_transcript.values
 action_labels_tr = df_training.action.values
-attributes_labels_tr = df_training.attributes.values
+attributes_labels_tr=df_training.attributes.values
 
 print("TRAINING DATA:")
 # Print the original sentence.
@@ -311,9 +317,10 @@ print('Token IDs: ', tokenizer.convert_tokens_to_ids(tokenizer.tokenize(transcri
 """#### Validation"""
 
 transcripts_vd = df_validation.transcript.values
-next_transcript_vd = df_validation.next_transcript.values
+previous_transcript_vd = df_validation.previous_transcript.values
+previous_system_transcript_vd = df_validation.previous_system_transcript.values
 action_labels_vd = df_validation.action.values
-attributes_labels_vd = df_validation.attributes.values
+attributes_labels_vd=df_validation.attributes.values
 dialog_ids_vd = df_validation.dialog_id.values
 turn_idxs_vd = df_validation.turn_idx.values
 
@@ -339,9 +346,10 @@ print(f"Turn IDs: {turn_idxs_vd[0:20]}")
 """
 
 transcripts_tst = df_test.transcript.values
-next_transcript_tst = df_test.next_transcript.values
+previous_transcript_tst = df_test.previous_transcript.values
+previous_system_transcript_tst = df_test.previous_system_transcript.values
 action_labels_tst = df_test.action.values
-attributes_labels_tst = df_test.attributes.values
+attributes_labels_tst=df_test.attributes.values
 dialog_ids_tst = df_test.dialog_id.values
 turn_idxs_tst = df_test.turn_idx.values
 
@@ -392,13 +400,10 @@ max_len_tr = 0
 for i in range(0, len(transcripts_tr)):
 
     # Tokenize the text and add `[CLS]` and `[SEP]` tokens.
-    if (use_next):
-        if (next_transcript_tr[i] != ""):
-            input_ids = tokenizer.encode(transcripts_tr[i], next_transcript_tr[i], add_special_tokens=True)
-        else:
-            input_ids = tokenizer.encode(transcripts_tr[i], add_special_tokens=True)
+    if (previous_transcript_tr[i] != "" and use_next):
+      input_ids = tokenizer.encode(previous_transcript_tr[i]+ " " + previous_system_transcript_tr[i],transcripts_tr[i], add_special_tokens=True)
     else:
-        input_ids = tokenizer.encode(transcripts_tr[i], add_special_tokens=True)
+      input_ids = tokenizer.encode(transcripts_tr[i], add_special_tokens=True)
 
     # Update the maximum sentence length.
     max_len_tr = max(max_len_tr, len(input_ids))
@@ -413,13 +418,10 @@ max_len_vd = 0
 for i in range(0, len(transcripts_vd)):
 
     # Tokenize the text and add `[CLS]` and `[SEP]` tokens.
-    if (use_next):
-        if (next_transcript_vd[i] != ""):
-            input_ids = tokenizer.encode(transcripts_vd[i], next_transcript_vd[i], add_special_tokens=True)
-        else:
-            input_ids = tokenizer.encode(transcripts_vd[i], add_special_tokens=True)
+    if (previous_transcript_vd[i] != "" and use_next):
+      input_ids = tokenizer.encode(previous_transcript_vd[i]+ " " + previous_system_transcript_vd[i],transcripts_vd[i], add_special_tokens=True)
     else:
-        input_ids = tokenizer.encode(transcripts_vd[i], add_special_tokens=True)
+      input_ids = tokenizer.encode(transcripts_vd[i], add_special_tokens=True)
 
     # Update the maximum sentence length.
     max_len_vd = max(max_len_vd, len(input_ids))
@@ -437,13 +439,10 @@ max_len_tst = 0
 
 for i in range(0, len(transcripts_tst)):
     # Tokenize the text and add `[CLS]` and `[SEP]` tokens.
-    if (use_next):
-        if (next_transcript_tst[i] != ""):
-            input_ids = tokenizer.encode(transcripts_tst[i], next_transcript_tst[i], add_special_tokens=True)
-        else:
-            input_ids = tokenizer.encode(transcripts_tst[i], add_special_tokens=True)
+    if (previous_transcript_tst[i] != "" and use_next):
+      input_ids = tokenizer.encode(previous_transcript_tst[i]+ " " + previous_system_transcript_tst[i],transcripts_tst[i], add_special_tokens=True)
     else:
-        input_ids = tokenizer.encode(transcripts_tst[i], add_special_tokens=True)
+      input_ids = tokenizer.encode(transcripts_tst[i], add_special_tokens=True)
 
     # Update the maximum sentence length.
     max_len_tst = max(max_len_tst, len(input_ids))
@@ -521,10 +520,10 @@ for i in range(0, len(df_training)):
     #   (5) Pad or truncate the sentence to `max_length`
     #   (6) Create attention masks for [PAD] tokens.
 
-    if (next_transcript_tr[i] != "" and use_next):
+    if (previous_transcript_tr[i] != "" and use_next):
         encoded_dict = tokenizer.encode_plus(
-            transcripts_tr[i],  # Sentence to encode.
-            next_transcript_tr[i],  # next sentece to encode
+            previous_transcript_tr[i] + " " + previous_system_transcript_tr[i],  # Sentence to encode.
+            transcripts_tr[i],  # next sentece to encode
             add_special_tokens=True,  # Add '[CLS]' and '[SEP]'
             truncation=True,
             max_length=max_len,  # Pad & truncate all sentences.
@@ -588,10 +587,10 @@ for i in range(0, len(df_validation)):
     #   (5) Pad or truncate the sentence to `max_length`
     #   (6) Create attention masks for [PAD] tokens.
 
-    if (next_transcript_vd[i] != "" and use_next):
+    if (previous_transcript_vd[i] != "" and use_next):
         encoded_dict = tokenizer.encode_plus(
-            transcripts_vd[i],  # Sentence to encode.
-            next_transcript_vd[i],  # next sentece to encode
+            previous_transcript_vd[i] + " " + previous_system_transcript_vd[i],  # Sentence to encode.
+            transcripts_vd[i],  # next sentece to encode
             add_special_tokens=True,  # Add '[CLS]' and '[SEP]'
             truncation=True,
             max_length=max_len,  # Pad & truncate all sentences.
@@ -663,10 +662,10 @@ for i in range(0, len(df_test)):
     #   (6) Create attention masks for [PAD] tokens.
 
     # Aggiungere "and False" PER UTILIZZARE sempre la tokenizzazione senza concatenazione
-    if (next_transcript_tst[i] != "" and use_next):
+    if (previous_transcript_tst[i] != "" and use_next):
         encoded_dict = tokenizer.encode_plus(
-            transcripts_tst[i],  # Sentence to encode.
-            next_transcript_tst[i],  # next sentece to encode
+            previous_transcript_tst[i] + " " + previous_system_transcript_tst[i],  # Sentence to encode.
+            transcripts_tst[i],  # next sentece to encode
             add_special_tokens=True,  # Add '[CLS]' and '[SEP]'
             truncation=True,
             max_length=max_len,  # Pad & truncate all sentences.
@@ -711,21 +710,21 @@ print('Token IDs:', input_ids_tst[0])
 print(f"Dialog IDs: {dialog_ids_tst[0:20]}")
 print(f"Turn IDXs: {turn_idxs_tst[0:20]}")
 
-for i in range(0, 10):
-    print(f"T: {transcripts_tst[i]} | NT: {next_transcript_tst[i]}")
-
-print("tr")
-for var in [input_ids_tr, attention_masks_tr, labels_actions_tr, labels_attributes_tr]:
-    print(len(var))
-print("vd")
-for var in [input_ids_vd, attention_masks_vd, labels_actions_vd, labels_attributes_vd, dialog_ids_vd, turn_idxs_vd]:
-    print(len(var))
-print("tst")
-for var in [input_ids_tst, attention_masks_tst, labels_actions_tst, labels_attributes_tst, dialog_ids_tst,
-            turn_idxs_tst]:
-    print(len(var))
-
-print(f"Dftest: {len(df_test)}")
+# for i in range(0, 10):
+#     print(f"T: {transcripts_tst[i]} | NT: {next_transcript_tst[i]}")
+#
+# print("tr")
+# for var in [input_ids_tr, attention_masks_tr, labels_actions_tr, labels_attributes_tr]:
+#     print(len(var))
+# print("vd")
+# for var in [input_ids_vd, attention_masks_vd, labels_actions_vd, labels_attributes_vd, dialog_ids_vd, turn_idxs_vd]:
+#     print(len(var))
+# print("tst")
+# for var in [input_ids_tst, attention_masks_tst, labels_actions_tst, labels_attributes_tst, dialog_ids_tst,
+#             turn_idxs_tst]:
+#     print(len(var))
+#
+# print(f"Dftest: {len(df_test)}")
 
 """# TRAINING
 
