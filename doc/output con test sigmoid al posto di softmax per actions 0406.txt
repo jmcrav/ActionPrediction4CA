@@ -1,0 +1,162 @@
+
+======== Epoch 1 / 4 ========
+Training...
+  Batch    40  of    663.    Elapsed: 0:00:34.
+  Batch    80  of    663.    Elapsed: 0:01:09.
+  Batch   120  of    663.    Elapsed: 0:01:45.
+  Batch   160  of    663.    Elapsed: 0:02:22.
+  Batch   200  of    663.    Elapsed: 0:02:59.
+  Batch   240  of    663.    Elapsed: 0:03:36.
+  Batch   280  of    663.    Elapsed: 0:04:14.
+  Batch   320  of    663.    Elapsed: 0:04:52.
+  Batch   360  of    663.    Elapsed: 0:05:30.
+  Batch   400  of    663.    Elapsed: 0:06:09.
+  Batch   440  of    663.    Elapsed: 0:06:48.
+  Batch   480  of    663.    Elapsed: 0:07:26.
+  Batch   520  of    663.    Elapsed: 0:08:05.
+  Batch   560  of    663.    Elapsed: 0:08:43.
+  Batch   600  of    663.    Elapsed: 0:09:22.
+  Batch   640  of    663.    Elapsed: 0:10:00.
+
+  Average training loss: 1.17
+  Training epcoh took: 0:10:22
+
+Running Validation...
+  Accuracy for classification (actions): 0.8537
+  Accuracy for multilabel-classification (attributes): 0.8469
+#Instances evaluated API: 3513
+***************************************
+Reference evaluation metrics:
+{'action_accuracy': 0.8536863079988614, 'action_perplexity': 1.580048504571942, 'attribute_accuracy': 0.6145093593575426, 'confusion_matrix': array([[4.600e+02, 2.700e+01, 1.000e+00, 0.000e+00, 5.000e+00],
+       [1.400e+01, 6.720e+02, 3.300e+01, 6.000e+00, 1.300e+01],
+       [1.400e+01, 1.550e+02, 5.240e+02, 5.600e+01, 1.400e+01],
+       [0.000e+00, 0.000e+00, 0.000e+00, 0.000e+00, 0.000e+00],
+       [4.000e+00, 5.400e+01, 6.600e+01, 5.200e+01, 1.343e+03]])}
+  Validation Loss: 1.0663
+  Validation took: 0:00:39
+
+======== Epoch 2 / 4 ========
+Training...
+  Batch    40  of    663.    Elapsed: 0:00:39.
+  Batch    80  of    663.    Elapsed: 0:01:17.
+  Batch   120  of    663.    Elapsed: 0:01:56.
+  Batch   160  of    663.    Elapsed: 0:02:34.
+  Batch   200  of    663.    Elapsed: 0:03:13.
+  Batch   240  of    663.    Elapsed: 0:03:51.
+  Batch   280  of    663.    Elapsed: 0:04:30.
+  Batch   320  of    663.    Elapsed: 0:05:09.
+  Batch   360  of    663.    Elapsed: 0:05:47.
+  Batch   400  of    663.    Elapsed: 0:06:26.
+  Batch   440  of    663.    Elapsed: 0:07:04.
+  Batch   480  of    663.    Elapsed: 0:07:43.
+  Batch   520  of    663.    Elapsed: 0:08:21.
+  Batch   560  of    663.    Elapsed: 0:09:00.
+  Batch   600  of    663.    Elapsed: 0:09:38.
+  Batch   640  of    663.    Elapsed: 0:10:17.
+
+  Average training loss: 1.06
+  Training epcoh took: 0:10:38
+
+Running Validation...
+  Accuracy for classification (actions): 0.8580
+  Accuracy for multilabel-classification (attributes): 0.8944
+#Instances evaluated API: 3513
+***************************************
+Reference evaluation metrics:
+{'action_accuracy': 0.8579561628237973, 'action_perplexity': 1.7922468326837353, 'attribute_accuracy': 0.7002661219496861, 'confusion_matrix': array([[4.680e+02, 2.900e+01, 1.000e+00, 0.000e+00, 7.000e+00],
+       [1.400e+01, 6.780e+02, 1.800e+01, 8.000e+00, 1.600e+01],
+       [1.000e+01, 1.510e+02, 5.270e+02, 4.500e+01, 1.100e+01],
+       [0.000e+00, 0.000e+00, 0.000e+00, 0.000e+00, 0.000e+00],
+       [0.000e+00, 5.000e+01, 7.800e+01, 6.100e+01, 1.341e+03]])}
+  Validation Loss: 1.0531
+  Validation took: 0:00:39
+
+======== Epoch 3 / 4 ========
+Training...
+  Batch    40  of    663.    Elapsed: 0:00:38.
+  Batch    80  of    663.    Elapsed: 0:01:17.
+  Batch   120  of    663.    Elapsed: 0:01:56.
+  Batch   160  of    663.    Elapsed: 0:02:34.
+  Batch   200  of    663.    Elapsed: 0:03:13.
+  Batch   240  of    663.    Elapsed: 0:03:51.
+  Batch   280  of    663.    Elapsed: 0:04:30.
+  Batch   320  of    663.    Elapsed: 0:05:08.
+  Batch   360  of    663.    Elapsed: 0:05:47.
+  Batch   400  of    663.    Elapsed: 0:06:25.
+  Batch   440  of    663.    Elapsed: 0:07:04.
+  Batch   480  of    663.    Elapsed: 0:07:42.
+  Batch   520  of    663.    Elapsed: 0:08:21.
+  Batch   560  of    663.    Elapsed: 0:09:00.
+  Batch   600  of    663.    Elapsed: 0:09:38.
+  Batch   640  of    663.    Elapsed: 0:10:17.
+
+  Average training loss: 1.04
+  Training epcoh took: 0:10:38
+
+Running Validation...
+  Accuracy for classification (actions): 0.8520
+  Accuracy for multilabel-classification (attributes): 0.9118
+#Instances evaluated API: 3513
+***************************************
+Reference evaluation metrics:
+{'action_accuracy': 0.851978366068887, 'action_perplexity': 1.6754380566449796, 'attribute_accuracy': 0.7071364310983312, 'confusion_matrix': array([[ 470.,   25.,    3.,    0.,    7.],
+       [  13.,  718.,   78.,    9.,   21.],
+       [   9.,  125.,  485.,   58.,   27.],
+       [   0.,    0.,    0.,    0.,    0.],
+       [   0.,   40.,   58.,   47., 1320.]])}
+  Validation Loss: 1.0495
+  Validation took: 0:00:39
+
+======== Epoch 4 / 4 ========
+Training...
+  Batch    40  of    663.    Elapsed: 0:00:39.
+  Batch    80  of    663.    Elapsed: 0:01:17.
+  Batch   120  of    663.    Elapsed: 0:01:56.
+  Batch   160  of    663.    Elapsed: 0:02:35.
+  Batch   200  of    663.    Elapsed: 0:03:13.
+  Batch   240  of    663.    Elapsed: 0:03:52.
+  Batch   280  of    663.    Elapsed: 0:04:30.
+  Batch   320  of    663.    Elapsed: 0:05:09.
+  Batch   360  of    663.    Elapsed: 0:05:47.
+  Batch   400  of    663.    Elapsed: 0:06:26.
+  Batch   440  of    663.    Elapsed: 0:07:05.
+  Batch   480  of    663.    Elapsed: 0:07:43.
+  Batch   520  of    663.    Elapsed: 0:08:22.
+  Batch   560  of    663.    Elapsed: 0:09:00.
+  Batch   600  of    663.    Elapsed: 0:09:39.
+  Batch   640  of    663.    Elapsed: 0:10:17.
+
+  Average training loss: 1.02
+  Training epcoh took: 0:10:39
+
+Running Validation...
+  Accuracy for classification (actions): 0.8548
+  Accuracy for multilabel-classification (attributes): 0.9135
+#Instances evaluated API: 3513
+***************************************
+Reference evaluation metrics:
+{'action_accuracy': 0.8548249359521777, 'action_perplexity': 1.6839700079629714, 'attribute_accuracy': 0.7213654523069004, 'confusion_matrix': array([[ 470.,   27.,    0.,    0.,    5.],
+       [  11.,  707.,   58.,    8.,   19.],
+       [   9.,  129.,  509.,   60.,   34.],
+       [   0.,    0.,    0.,    0.,    0.],
+       [   2.,   45.,   57.,   46., 1317.]])}
+  Validation Loss: 1.0462
+  Validation took: 0:00:39
+
+Training complete!
+Total training took 0:44:55 (h:mm:ss)
+
+
+
+EVALUATION:
+
+Accuracy for classification (actions): 0.8484
+  Accuracy for multilabel-classification (attributes): 0.9092
+#Instances evaluated API: 5397
+***************************************
+Reference evaluation metrics:
+{'action_accuracy': 0.8484343153603854, 'action_perplexity': 1.8101346833923846, 'attribute_accuracy': 0.7174073361985809, 'confusion_matrix': array([[ 748.,   45.,    8.,    4.,   17.],
+       [  27., 1072.,   89.,   14.,   36.],
+       [  11.,  194.,  755.,  111.,   31.],
+       [   0.,    0.,    0.,    0.,    0.],
+       [   7.,   75.,   92.,   57., 2004.]])}
