@@ -135,3 +135,5 @@ checkpoints.zip
 /.vs/ProjectSettings.json
 /.vs/slnx.sqlite
 /.vs/
+
+colabNotebooks/confint/ActionPrediction4CA/
