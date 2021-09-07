@@ -137,3 +137,5 @@ checkpoints.zip
 /.vs/
 
 colabNotebooks/confint/ActionPrediction4CA/
+
+.DS_Store
